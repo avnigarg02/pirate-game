@@ -6,7 +6,7 @@ import android.app.AppOpsManager;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 
 import androidx.annotation.Nullable;
@@ -22,6 +22,11 @@ import android.Manifest;
 
 import java.util.ArrayList;
 import android.content.Context;
+
+import com.caverock.androidsvg.BuildConfig;
+
+import org.osmdroid.config.Configuration;
+
 
 
 
@@ -41,20 +46,23 @@ public class Path extends AppCompatActivity {
 
 
         map = (MapView) findViewById(R.id.map);
-        map.setTileSource(TileSourceFactory.OpenTopo);
+        map.setTileSource(TileSourceFactory.MAPNIK);
 
         requestPermissionsIfNecessary(new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
 
-        IMapController mapController = map.getController();
-        mapController.setZoom(9.5);
-        GeoPoint startPoint = new GeoPoint(38.8977, -77.0365);
-        mapController.setCenter(startPoint);
+//        IMapController mapController = map.getController();
+//        mapController.setZoom(9.5);
+//        GeoPoint startPoint = new GeoPoint(38.8977, -77.0365);
+//        mapController.setCenter(startPoint);
 
-        if (!hasUsageStatsPermission()) {
+        if (!hasUsageStatsPermission())
+        {
             requestUsageStatsPermission();
-        } else {
+        }
+        else
+        {
             // Permission already granted, proceed with retrieving usage stats
             retrieveUsageStats();
         }
