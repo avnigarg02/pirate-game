@@ -3,23 +3,70 @@ package com.aclhacks.pirategame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AppOpsManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     // Declare your variables and views here
 
+    private Button signupButton = findViewById(R.id.signUpBtn);
+    private EditText email = findViewById(R.id.emailSignUp);
+    private EditText password = findViewById(R.id.password);
+    private EditText passwordConfirm = findViewById(R.id.passwordConfirmation);
+    private EditText fullName;
+    private EditText username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.button_layout);
-
+        setContentView(R.layout.signup);
+        signupButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (password.getText().toString().equals(passwordConfirm.getText().toString()))
+                {
+                    createAccount(username.getText().toString(), password.getText().toString(), email.getText().toString(), fullName.getText().toString());
+                }
+            }
+        });
     }
+
+
+    public void createAccount(String username, String password, String email, String fullName)
+    {
+        UserDataDbHelper mDbHelper = new UserDataDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(UserInfo.UserEntry.FULL_NAME, fullName);
+        values.put(UserInfo.UserEntry.EMAIL, email);
+        values.put(UserInfo.UserEntry.ALLOWED_APPS, "");
+        values.put(UserInfo.UserEntry.BLOCKED_APPS, "");
+        values.put(UserInfo.UserEntry.USAGE_HISTORY, "");
+
+        long newRowId = db.insert(UserInfo.UserEntry.TABLE_NAME, null, values);
+        LoginDataDbHelper mDbHelper2 = new LoginDataDbHelper(this);
+        SQLiteDatabase db2 = mDbHelper2.getWritableDatabase();
+
+        ContentValues values2 = new ContentValues();
+        values2.put(LoginInfo.UserEntry.USERNAME, username);
+        values2.put(LoginInfo.UserEntry.PASSWORD, password);
+        values2.put(LoginInfo.UserEntry.USER_ID, newRowId);
+
+        long newRowId2 = db2.insert(LoginInfo.UserEntry.TABLE_NAME, null, values2);
+    }
+
+
 
 //    private void requestUsageStatsPermission() {
 //        if (!hasUsageStatsPermission()) {
