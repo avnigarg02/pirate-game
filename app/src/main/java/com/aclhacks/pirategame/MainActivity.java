@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
     private boolean validateEmail(String email)
     {
-            return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 
