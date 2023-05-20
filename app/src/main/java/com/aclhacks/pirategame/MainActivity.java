@@ -11,8 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v13.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity
     private EditText fullName;
     private EditText username;
 
-    private static final int REQUEST_MAPS = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,7 +63,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
 
     // account information
     public void createAccount(String username, String password, String email, String fullName)
@@ -92,22 +89,6 @@ public class MainActivity extends AppCompatActivity
         long newRowId2 = db2.insert(LoginInfo.UserEntry.TABLE_NAME, null, values2);
     }
 
-    private void requestPermissionsIfNecessary(String[] permissions) {
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // Permission is not granted
-                permissionsToRequest.add(permission);
-            }
-        }
-        if (permissionsToRequest.size() > 0) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_MAPS);
-        }
-    }
 
     private static boolean validateEmail(String email)
     {
