@@ -1,32 +1,12 @@
 package com.aclhacks.pirategame;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.app.AppOpsManager;
-import android.app.usage.*;
 import android.content.*;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
-import androidx.annotation.Nullable;
-
-
-import android.Manifest;
-import android.content.Context;
-
-import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.views.MapView;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity
@@ -59,6 +39,11 @@ public class MainActivity extends AppCompatActivity
                 if (password.getText().toString().equals(passwordConfirm.getText().toString()))
                 {
                     createAccount(username.getText().toString(), password.getText().toString(), email.getText().toString(), fullName.getText().toString());
+                    setContentView(R.layout.map_view);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
                 }
             }
         });
