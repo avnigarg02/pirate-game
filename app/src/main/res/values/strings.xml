@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Pirate Game</string>
     <string name="click_me">Click Me</string>
+    <string name="button">Button</string>
 </resources>
