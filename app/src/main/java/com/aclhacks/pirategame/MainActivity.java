@@ -3,34 +3,28 @@ package com.aclhacks.pirategame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AppOpsManager;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
+import android.content.*;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
+import androidx.annotation.Nullable;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
     // Declare your variables and views here
-
     private Button signupButton;
     private EditText email;
     private EditText password;
     private EditText passwordConfirm;
     private EditText fullName;
     private EditText username;
+
+    private static final int REQUEST_USAGE_STATS = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -42,20 +36,59 @@ public class MainActivity extends AppCompatActivity
         passwordConfirm = findViewById(R.id.passwordConfirmation);
         fullName = findViewById(R.id.fullname);
         username = findViewById(R.id.username);
-        signupButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        signupButton.setOnClickListener(v -> {
+            if (password.getText().toString().equals(passwordConfirm.getText().toString()))
             {
-                if (password.getText().toString().equals(passwordConfirm.getText().toString()))
-                {
-                    createAccount(username.getText().toString(), password.getText().toString(), email.getText().toString(), fullName.getText().toString());
-                }
+                createAccount(username.getText().toString(), password.getText().toString(), email.getText().toString(), fullName.getText().toString());
             }
         });
+
+        if (!hasUsageStatsPermission()) {
+            requestUsageStatsPermission();
+        } else {
+            // Permission already granted, proceed with retrieving usage stats
+            retrieveUsageStats();
+        }
+    }
+
+    // request permission to collect screen time stats
+    private boolean hasUsageStatsPermission() {
+        AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), getPackageName());
+        return mode == AppOpsManager.MODE_ALLOWED;
+    }
+
+    private void requestUsageStatsPermission() {
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+        startActivityForResult(intent, REQUEST_USAGE_STATS);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_USAGE_STATS) {
+            if (hasUsageStatsPermission()) {
+                // Permission granted, proceed with retrieving usage stats
+                retrieveUsageStats();
+            } else {
+                // Permission denied by the user
+                noPermsision();
+            }
+        }
+    }
+
+    private void retrieveUsageStats() {
+        // Code to retrieve usage stats here
+        // ...
+    }
+
+    private void noPermsision() {
+        // no
     }
 
 
+    // account information
     public void createAccount(String username, String password, String email, String fullName)
     {
         UserDataDbHelper mDbHelper = new UserDataDbHelper(this);
@@ -85,20 +118,4 @@ public class MainActivity extends AppCompatActivity
         return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-
-
-//    private void requestUsageStatsPermission() {
-//        if (!hasUsageStatsPermission()) {
-//            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-//            startActivity(intent);
-//        }
-//    }
-//
-//    private boolean hasUsageStatsPermission() {
-//        AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
-//        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), getPackageName());
-//        return mode == AppOpsManager.MODE_ALLOWED;
-//    }
-
-    // Create additional methods for various app functionalities
 }
