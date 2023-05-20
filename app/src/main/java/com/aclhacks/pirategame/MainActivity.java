@@ -6,6 +6,7 @@ import android.app.AppOpsManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -17,14 +18,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
 {
     // Declare your variables and views here
 
-    private Button signupButton = findViewById(R.id.signUpBtn);
-    private EditText email = findViewById(R.id.emailSignUp);
-    private EditText password = findViewById(R.id.password);
-    private EditText passwordConfirm = findViewById(R.id.passwordConfirmation);
+    private Button signupButton;
+    private EditText email;
+    private EditText password;
+    private EditText passwordConfirm;
     private EditText fullName;
     private EditText username;
     @Override
@@ -32,6 +36,12 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+        signupButton = findViewById(R.id.signUpBtn);
+        email = findViewById(R.id.emailSignUp);
+        password = findViewById(R.id.password);
+        passwordConfirm = findViewById(R.id.passwordConfirmation);
+        fullName = findViewById(R.id.fullname);
+        username = findViewById(R.id.username);
         signupButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
