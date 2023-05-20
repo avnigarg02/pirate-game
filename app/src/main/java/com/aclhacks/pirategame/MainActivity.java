@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
+import android.app.usage.*;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,11 +39,8 @@ public class MainActivity extends AppCompatActivity
     private EditText fullName;
     private EditText username;
 
-    private static final int REQUEST_USAGE_STATS = 1;
-    private final int REQUEST_MAPS = 1;
-    private MapView map = null;
+    private static final int REQUEST_MAPS = 1;
 
-    @SuppressLint({"ResourceType", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -66,68 +64,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
-        map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
-    }
-
-    @SuppressLint({"ResourceType", "MissingInflatedId"})
-    private void showMap()
-    {
-        Context ctx = getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        setContentView(R.layout.map_view);
-
-
-        map = (MapView) findViewById(R.layout.map_view);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-
-        requestPermissionsIfNecessary(new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        });
-    }
-    // request permission to collect screen time stats
-    private boolean hasUsageStatsPermission() {
-        AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
-        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), getPackageName());
-        return mode == AppOpsManager.MODE_ALLOWED;
-    }
-
-    private void requestUsageStatsPermission() {
-        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-        startActivityForResult(intent, REQUEST_USAGE_STATS);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_USAGE_STATS) {
-            if (hasUsageStatsPermission()) {
-                // Permission granted, proceed with retrieving usage stats
-                retrieveUsageStats();
-            } else {
-                // Permission denied by the user
-                noPermsision();
-            }
-        }
-    }
-
-    private void retrieveUsageStats() {
-        // Code to retrieve usage stats here
-        // ...
-    }
-
-    private void noPermsision() {
-        // no
     }
 
 
