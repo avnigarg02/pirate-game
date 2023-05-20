@@ -9,13 +9,16 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     // Declare your variables and views here
 
     private Button signupButton = findViewById(R.id.signUpBtn);
@@ -25,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText fullName;
     private EditText username;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
         signupButton.setOnClickListener(new View.OnClickListener()
@@ -64,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         values2.put(LoginInfo.UserEntry.USER_ID, newRowId);
 
         long newRowId2 = db2.insert(LoginInfo.UserEntry.TABLE_NAME, null, values2);
+    }
+
+    private boolean validateEmail(String email)
+    {
+            return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 
