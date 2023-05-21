@@ -74,17 +74,6 @@
         android:textSize="30dp"
         android:text="5 - " />
 
-    <ImageButton
-        android:id="@+id/settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="301dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
-
     <Button
         android:id="@+id/back"
         android:layout_width="match_parent"
