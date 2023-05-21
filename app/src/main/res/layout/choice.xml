@@ -92,7 +92,7 @@
         android:ems="4"
         android:fontFamily="@font/almendra_sc"
         android:inputType="number"
-        android:text="Hours"
+        android:hint="Hours"
         android:textColor="#FEFEFE"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -106,7 +106,7 @@
         android:ems="4"
         android:fontFamily="@font/almendra_sc"
         android:inputType="number"
-        android:text="Minutes"
+        android:hint="Minutes"
         android:textColor="#FEFEFE"
         app:layout_constraintStart_toEndOf="@+id/inputHr"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
