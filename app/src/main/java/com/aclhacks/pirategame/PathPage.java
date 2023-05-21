@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import android.content.Context;
+import android.os.Handler;
 import android.provider.Settings;
 
 
@@ -42,6 +43,8 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
     private MapView map = null;
     private BoatOverlay boat;
     private static final int REQUEST_USAGE_STATS = 1;
+    private Handler handler;
+    private Runnable runnable;
 
 
     @Override
@@ -96,15 +99,12 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         map.getOverlays().add(boat);
         map.invalidate();
 
-        Runnable runnable = new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 while (true) {
-                    try {
-                        Thread.sleep(1000 * 60);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    handler.postDelayed(this, 1000 * 60);
                     if (!hasUsageStatsPermission()) {
                         requestUsageStatsPermission();
                     } else {
@@ -114,6 +114,7 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
                 }
             }
         };
+        handler.post(runnable);
 
     }
 
