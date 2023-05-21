@@ -195,19 +195,23 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         List<UsageStats> usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime);
 
         // Process the retrieved usage stats
-        long totalTime = 0l;
+        boolean passing = true;
         for (UsageStats usageStats : usageStatsList) {
             String packageName = usageStats.getPackageName();
-            long totalUsageTime = usageStats.getTotalTimeInForeground();
+//            long totalUsageTime = usageStats.getTotalTimeInForeground();
+            long lastTimeUsed = usageStats.getLastTimeUsed();
 
             // Process the package name and usage time as needed
             if (!packageName.startsWith("com.android.") && !packageName.equals("com.aclhacks.pirategame")) {
-                totalTime += totalUsageTime;
+                if (lastTimeUsed >= startTime) {
+                    passing = false;
+                    break;
+                }
             }
         }
 
         // shipwreck if fail - use apps for more than a second in past minute
-//        if (totalTime > 1000) {
+//        if (!passing) {
 //            boat = null;
 //            Intent intent = new Intent(PathPage.this, ShipwreckedPage.class);
 //            startActivity(intent);
