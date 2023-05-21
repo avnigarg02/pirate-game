@@ -82,7 +82,6 @@
         android:text="How Long?"
         android:textColor="#FEFEFE"
         android:textSize="50dp"
-        android:centerHorizontal="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/optionA" />
 
