@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage">
+    tools:context=".LoginPage"
+    android:background="@drawable/_60_f_268177020_kvsbjhqxznienbqfwmeu3qkl9cr4doco">
+    >
 
     <TextView
         android:id="@+id/signin"
