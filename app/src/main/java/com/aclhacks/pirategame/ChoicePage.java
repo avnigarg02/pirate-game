@@ -21,7 +21,7 @@ public class ChoicePage extends AppCompatActivity {
     private TextView coinsText;
     private int coins = 0;
     private int time = 0;
-    private float scaler = 1f;
+    private float scalar = 1f;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,21 +39,21 @@ public class ChoicePage extends AppCompatActivity {
         optionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               scaler = 1f;
+               scalar = 1f;
             }
         });
 
         optionB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scaler = 1.5f;
+                scalar = 1.5f;
             }
         });
 
         optionC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scaler = 2f;
+                scalar = 2f;
             }
         });
 
@@ -86,7 +86,7 @@ public class ChoicePage extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 time = (int) (Float.parseFloat(inputHr.getText().toString()) * 60 + Float.parseFloat(inputMin.getText().toString()));
-                coins = (int) (time * scaler);
+                coins = (int) (time * scalar);
                 coinsText.setText(String.format("%d coins", coins));
             }
 
@@ -101,7 +101,7 @@ public class ChoicePage extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 time = (int) (Float.parseFloat(inputHr.getText().toString()) * 60 + Float.parseFloat(inputMin.getText().toString()));
-                coins = (int) (time * scaler);
+                coins = (int) (time * scalar);
                 coinsText.setText(String.format("%d coins", coins));
             }
 
