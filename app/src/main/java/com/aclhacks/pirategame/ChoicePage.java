@@ -22,6 +22,8 @@ public class ChoicePage extends AppCompatActivity {
     private int coins = 0;
     private int time = 0;
     private float scalar = 1f;
+    private int hours = 0;
+    private int minutes = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +87,12 @@ public class ChoicePage extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                time = (int) (Float.parseFloat(inputHr.getText().toString()) * 60 + Float.parseFloat(inputMin.getText().toString()));
+                if (!inputHr.getText().toString().equals("")) {
+                    hours = Integer.parseInt(inputHr.getText().toString());
+                } else {
+                    hours = 0;
+                }
+                time = hours * 60 + minutes;
                 coins = (int) (time * scalar);
                 coinsText.setText(String.format("%d coins", coins));
             }
@@ -100,7 +107,12 @@ public class ChoicePage extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                time = (int) (Float.parseFloat(inputHr.getText().toString()) * 60 + Float.parseFloat(inputMin.getText().toString()));
+                if (!inputMin.getText().toString().equals("")) {
+                    minutes = Integer.parseInt(inputMin.getText().toString());
+                } else {
+                    minutes = 0;
+                }
+                time = hours * 60 + minutes;
                 coins = (int) (time * scalar);
                 coinsText.setText(String.format("%d coins", coins));
             }
