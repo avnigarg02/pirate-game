@@ -152,7 +152,7 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         Intent intent = new Intent(this, FinishPage.class);
         intent.putExtra("coins", getIntent().getIntExtra("coins", 0));
         intent.putExtra("start", getIntent().getLongExtra("start", 0));
-//        intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
+        intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
         startActivity(intent);
         finish();
     }
@@ -208,6 +208,7 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
 
         // shipwreck if fail - use apps for more than a second in past minute
 //        if (totalTime > 1000) {
+//            boat = null;
 //            Intent intent = new Intent(PathPage.this, ShipwreckedPage.class);
 //            startActivity(intent);
 //            finish();

@@ -19,6 +19,7 @@ public final class UserInfo
         public static final String ALLOWED_APPS = "allowed_apps";
         public static final String BLOCKED_APPS = "blocked_apps";
         public static final String USAGE_HISTORY = "usage_history";
+        public static final String COINS = "coins";
     }
 
 

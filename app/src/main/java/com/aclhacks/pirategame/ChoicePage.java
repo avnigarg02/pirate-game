@@ -70,6 +70,7 @@ public class ChoicePage extends AppCompatActivity {
             public void onClick(View view) {
                 //set content view to settings page
                 Intent intent = new Intent(ChoicePage.this, SettingsPage.class);
+                intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
                 startActivity(intent);
                 finish();
             }
@@ -83,7 +84,7 @@ public class ChoicePage extends AppCompatActivity {
                 intent.putExtra("coins", coins);
                 intent.putExtra("time", time);
                 intent.putExtra("start", System.currentTimeMillis());
-//                intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
+                intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
                 startActivity(intent);
                 finish();
             }

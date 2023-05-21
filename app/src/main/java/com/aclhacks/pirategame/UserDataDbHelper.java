@@ -13,7 +13,8 @@ public class UserDataDbHelper extends SQLiteOpenHelper
                     UserInfo.UserEntry.EMAIL + " TEXT," +
                     UserInfo.UserEntry.ALLOWED_APPS + " TEXT," +
                     UserInfo.UserEntry.BLOCKED_APPS + " TEXT," +
-                    UserInfo.UserEntry.USAGE_HISTORY + " TEXT)";
+                    UserInfo.UserEntry.USAGE_HISTORY + " TEXT," +
+                    UserInfo.UserEntry.COINS + " INTEGER)";
 
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UserInfo.UserEntry.TABLE_NAME;

@@ -63,6 +63,7 @@ public class SignupPage extends AppCompatActivity
         values.put(UserInfo.UserEntry.ALLOWED_APPS, "");
         values.put(UserInfo.UserEntry.BLOCKED_APPS, "");
         values.put(UserInfo.UserEntry.USAGE_HISTORY, "");
+        values.put(UserInfo.UserEntry.COINS, 0);
 
         long newRowId = db.insert(UserInfo.UserEntry.TABLE_NAME, null, values);
         LoginDataDbHelper mDbHelper2 = new LoginDataDbHelper(this);

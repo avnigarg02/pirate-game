@@ -37,6 +37,7 @@ public class LoginPage extends AppCompatActivity
                 if (login(username.getText().toString(), password.getText().toString()) != null)
                 {
                     Intent intent = new Intent(LoginPage.this, ChoicePage.class);
+                    System.out.println(userId);
                     intent.putExtra("userId", userId);
                     startActivity(intent);
                     finish();
@@ -105,7 +106,8 @@ public class LoginPage extends AppCompatActivity
                     UserInfo.UserEntry.EMAIL,
                     UserInfo.UserEntry.ALLOWED_APPS,
                     UserInfo.UserEntry.BLOCKED_APPS,
-                    UserInfo.UserEntry.USAGE_HISTORY
+                    UserInfo.UserEntry.USAGE_HISTORY,
+                    UserInfo.UserEntry.COINS
             };
 
             String selection2 = UserInfo.UserEntry._ID + " = ?";
