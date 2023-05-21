@@ -207,12 +207,9 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
 
             // Process the package name and usage time as needed
             // check if using apps other than default apps and this app
-            ArrayList<String> allowed = new ArrayList<>();
-            allowed.add("com.aclhacks.pirategame");
-            allowed.add("com.google.android.permissioncontroller");
-            allowed.add("com.google.android.packageinstaller");
-            allowed.add("com.google.android.apps.nexuslauncher");
-            if (!packageName.startsWith("com.android.") && !packageName.startsWith("com.samsung.") && !allowed.contains(packageName)) {
+            ArrayList<String> disallowed = new ArrayList<>();
+            disallowed.add("com.nytimes.android");
+            if (disallowed.contains(packageName)) {
                 System.out.println(packageName + " " + totalUsageTime + " " + lastTimeUsed);
                 if (lastTimeUsed >= startTime) {
                     passing = false;
