@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.preference.PreferenceManager;
@@ -16,6 +17,8 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Polyline;
 
 import android.Manifest;
 
@@ -70,9 +73,44 @@ public class PathPage extends AppCompatActivity {
         List<Double> randPoint = points.get((int) (Math.random() * points.size()));
 
         IMapController mapController = map.getController();
-        mapController.setZoom(9.5);
+        mapController.setZoom(20);
+        Marker startMarker = new Marker(map);
         GeoPoint startPoint = new GeoPoint(randPoint.get(0), randPoint.get(1));
         mapController.setCenter(startPoint);
+        startMarker.setPosition(startPoint);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        map.getOverlays().add(startMarker);
+        Drawable boatDrawable = ContextCompat.getDrawable(this, R.drawable.boat);
+//        int minutes = Integer.parseInt(getIntent().getStringExtra("time"));
+        BoatOverlay boat = new BoatOverlay(boatDrawable, startPoint, 6000, map);
+        map.getOverlays().add(boat);
+        map.invalidate();
+    }
+
+    private static GeoPoint calculateEndPoint(GeoPoint startPoint, double distance) {
+        // Convert distance to meters (if needed)
+        double distanceInMeters = distance;
+
+        // Earth's radius in meters
+        double earthRadius = 6371000;
+
+        // Convert latitude and longitude to radians
+        double lat1 = Math.toRadians(startPoint.getLatitude());
+        double lon1 = Math.toRadians(startPoint.getLongitude());
+
+        // Calculate the end point's latitude
+        double lat2 = Math.asin(Math.sin(lat1) * Math.cos(distanceInMeters / earthRadius) +
+                Math.cos(lat1) * Math.sin(distanceInMeters / earthRadius) * Math.cos(0));
+
+        // Calculate the end point's longitude
+        double lon2 = lon1 + Math.atan2(Math.sin(0) * Math.sin(distanceInMeters / earthRadius) * Math.cos(lat1),
+                Math.cos(distanceInMeters / earthRadius) - Math.sin(lat1) * Math.sin(lat2));
+
+        // Convert back to degrees
+        double endLatitude = Math.toDegrees(lat2);
+        double endLongitude = Math.toDegrees(lon2);
+
+        return new GeoPoint(endLatitude, endLongitude);
     }
 
     @Override
