@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.*;
+//import org.osmdroid.views.overlay.kml.*;
 import android.Manifest;
 
 import java.util.ArrayList;
