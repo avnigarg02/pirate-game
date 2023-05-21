@@ -42,6 +42,8 @@
         android:layout_marginTop="500dp"
         android:layout_marginEnd="123dp"
         android:text="Change Password"
+        android:backgroundTint="@color/design_default_color_primary"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
 
@@ -52,6 +54,8 @@
         android:layout_marginStart="122dp"
         android:layout_marginTop="350dp"
         android:layout_marginEnd="152dp"
+        android:backgroundTint="@color/design_default_color_primary"
+
         android:text="Statistics"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changePassword" />
@@ -64,6 +68,8 @@
         android:layout_marginEnd="157dp"
         android:layout_marginTop="425dp"
         android:text="Friends"
+        android:backgroundTint="@color/design_default_color_primary"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statistics" />
 
@@ -75,6 +81,8 @@
         android:layout_marginEnd="137dp"
         android:layout_marginTop="575dp"
         android:text="Change Email"
+        android:backgroundTint="@color/design_default_color_primary"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeUsername" />
 
@@ -85,6 +93,8 @@
         android:layout_marginStart="110dp"
         android:layout_marginEnd="140dp"
         android:layout_marginTop="650dp"
+        android:backgroundTint="@color/design_default_color_primary"
+
         android:text="Logout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -96,6 +106,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="280dp"
         android:layout_marginTop="25dp"
+        android:backgroundTint="@color/design_default_color_primary"
+
         android:text="Back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
