@@ -99,12 +99,16 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         List<Double> randPoint = points.get((int) (Math.random() * points.size()));
 
         IMapController mapController = map.getController();
-        mapController.setZoom(10);
+        map.setMinZoomLevel(15.);
+        map.setMaxZoomLevel(15.);
+        mapController.stopPanning();
+        mapController.setZoom(15);
         Marker startMarker = new Marker(map);
         GeoPoint startPoint = new GeoPoint(randPoint.get(0), randPoint.get(1));
         mapController.setCenter(startPoint);
         startMarker.setPosition(startPoint);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        startMarker.setIcon(ContextCompat.getDrawable(this, R.drawable.xspot));
         map.getOverlays().add(startMarker);
         Drawable boatDrawable = ContextCompat.getDrawable(this, R.drawable.boat);
         int minutes = getIntent().getIntExtra("time", 0);
@@ -208,7 +212,7 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
             allowed.add("com.google.android.permissioncontroller");
             allowed.add("com.google.android.packageinstaller");
             allowed.add("com.google.android.apps.nexuslauncher");
-            if (!packageName.startsWith("com.android.") && !allowed.contains(packageName)) {
+            if (!packageName.startsWith("com.android.") && !packageName.startsWith("com.samsung.") && !allowed.contains(packageName)) {
                 System.out.println(packageName + " " + totalUsageTime + " " + lastTimeUsed);
                 if (lastTimeUsed >= startTime) {
                     passing = false;
