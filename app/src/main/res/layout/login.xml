@@ -95,13 +95,13 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="151dp"
+        android:layout_width="match_parent"
         android:layout_height="155dp"
         app:srcCompat="@drawable/pirate_game_logo"
         android:layout_above="@id/signUpBtn"
         android:layout_marginStart="135dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="135dp"
         android:layout_marginBottom="400dp"
         />
 

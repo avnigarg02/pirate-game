@@ -9,9 +9,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="136dp"
         android:layout_marginStart="57dp"
+        android:layout_marginEnd="57dp"
         android:layout_marginTop="150dp"
         android:fontFamily="@font/almendra_sc"
         android:text="What Kind of Adventure?"
@@ -23,9 +24,10 @@
 
     <Button
         android:id="@+id/optionA"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
+        android:layout_marginEnd="290dp"
         android:layout_marginTop="300dp"
         android:text="A"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,9 +36,10 @@
 
     <Button
         android:id="@+id/optionB"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
+        android:layout_marginEnd="170dp"
         android:layout_marginTop="300dp"
         android:text="B"
         app:layout_constraintStart_toEndOf="@+id/optionA"
@@ -45,9 +48,10 @@
 
     <Button
         android:id="@+id/optionC"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="285dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginTop="300dp"
         android:text="C"
         app:layout_constraintStart_toEndOf="@+id/optionB"
@@ -56,9 +60,10 @@
 
     <ImageButton
         android:id="@+id/settings"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="331dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -66,9 +71,10 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="91dp"
+        android:layout_marginEnd="91dp"
         android:layout_marginTop="400dp"
         android:fontFamily="@font/almendra_sc"
         android:text="How Long?"
@@ -79,9 +85,10 @@
 
     <EditText
         android:id="@+id/inputHr"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="120dp"
+        android:layout_marginEnd="225dp"
         android:layout_marginTop="475dp"
         android:ems="4"
         android:fontFamily="@font/almendra_sc"
@@ -93,9 +100,10 @@
 
     <EditText
         android:id="@+id/inputMin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="225dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginTop="475dp"
         android:ems="4"
         android:fontFamily="@font/almendra_sc"
@@ -107,9 +115,10 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="127dp"
+        android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_marginStart="100dp"
+        android:layout_marginEnd="200dp"
         android:layout_marginTop="550dp"
         android:fontFamily="@font/almendra_sc"
         android:text="Reward on Completion:"
@@ -120,9 +129,10 @@
 
     <TextView
         android:id="@+id/coinsText"
-        android:layout_width="127dp"
+        android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_marginStart="225dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginTop="550dp"
         android:fontFamily="@font/almendra_sc"
         android:text="0 coins"
@@ -133,9 +143,10 @@
 
     <Button
         android:id="@+id/startTimer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="159dp"
+        android:layout_marginEnd="159dp"
         android:layout_marginTop="625dp"
         android:text="START"
         app:layout_constraintStart_toStartOf="parent"
