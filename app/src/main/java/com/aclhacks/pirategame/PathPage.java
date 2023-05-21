@@ -191,18 +191,25 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         // Set the desired time range for which you want to retrieve usage stats
 //        long startTime = getIntent().getLongExtra("start", 0);
         long endTime = System.currentTimeMillis();
-        long startTime = endTime - 1000 * 60; // 1 minute
-        List<UsageStats> usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime);
+        long startTime = endTime - 1000 * 10; // 1 minute
+        List<UsageStats> usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, startTime, endTime);
 
         // Process the retrieved usage stats
         boolean passing = true;
         for (UsageStats usageStats : usageStatsList) {
             String packageName = usageStats.getPackageName();
-//            long totalUsageTime = usageStats.getTotalTimeInForeground();
+            long totalUsageTime = usageStats.getTotalTimeInForeground();
             long lastTimeUsed = usageStats.getLastTimeUsed();
 
             // Process the package name and usage time as needed
-            if (!packageName.startsWith("com.android.") && !packageName.equals("com.aclhacks.pirategame")) {
+            // check if using apps other than default apps and this app
+            ArrayList<String> allowed = new ArrayList<>();
+            allowed.add("com.aclhacks.pirategame");
+            allowed.add("com.google.android.permissioncontroller");
+            allowed.add("com.google.android.packageinstaller");
+            allowed.add("com.google.android.apps.nexuslauncher");
+            if (!packageName.startsWith("com.android.") && !allowed.contains(packageName)) {
+                System.out.println(packageName + " " + totalUsageTime + " " + lastTimeUsed);
                 if (lastTimeUsed >= startTime) {
                     passing = false;
                     break;
@@ -211,12 +218,12 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         }
 
         // shipwreck if fail - use apps for more than a second in past minute
-//        if (!passing) {
-//            boat = null;
-//            Intent intent = new Intent(PathPage.this, ShipwreckedPage.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        if (!passing) {
+            boat = null;
+            Intent intent = new Intent(PathPage.this, ShipwreckedPage.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 
