@@ -1,7 +1,10 @@
 package com.aclhacks.pirategame;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AppOpsManager;
+import android.app.usage.*;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -30,6 +33,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import android.content.Context;
+import android.provider.Settings;
 
 
 public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayListener {
@@ -37,6 +41,8 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
     private static final int REQUEST_MAPS = 1;
     private MapView map = null;
     private BoatOverlay boat;
+    private static final int REQUEST_USAGE_STATS = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +95,26 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         boat.setOverlayListener(this);
         map.getOverlays().add(boat);
         map.invalidate();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000 * 60);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (!hasUsageStatsPermission()) {
+                        requestUsageStatsPermission();
+                    } else {
+                        // Permission already granted, proceed with retrieving usage stats
+                        retrieveUsageStats();
+                    }
+                }
+            }
+        };
+
     }
 
 
@@ -127,5 +153,67 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         intent.putExtra("start", getIntent().getLongExtra("start", 0));
         startActivity(intent);
         finish();
+    }
+
+    // request permission to collect screen time stats
+    private boolean hasUsageStatsPermission() {
+        AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), getPackageName());
+        return mode == AppOpsManager.MODE_ALLOWED;
+    }
+
+    private void requestUsageStatsPermission() {
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_USAGE_STATS) {
+            if (hasUsageStatsPermission()) {
+                // Permission granted, proceed with retrieving usage stats
+                retrieveUsageStats();
+            } else {
+                // Permission denied by the user
+                noPermission();
+            }
+        }
+    }
+
+    private void retrieveUsageStats() {
+        // Code to retrieve usage stats here
+        UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
+
+        // Set the desired time range for which you want to retrieve usage stats
+//        long startTime = getIntent().getLongExtra("start", 0);
+        long endTime = System.currentTimeMillis();
+        long startTime = endTime - 1000 * 60; // 1 minute
+        List<UsageStats> usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime);
+
+        // Process the retrieved usage stats
+        long totalTime = 0l;
+        for (UsageStats usageStats : usageStatsList) {
+            String packageName = usageStats.getPackageName();
+            long totalUsageTime = usageStats.getTotalTimeInForeground();
+
+            // Process the package name and usage time as needed
+            if (!packageName.startsWith("com.android.")) {
+                totalTime += totalUsageTime;
+            }
+        }
+
+        // shipwreck if fail - use apps for more than a second in past minute
+        if (totalTime > 1000) {
+            Intent intent = new Intent(PathPage.this, ShipwreckedPage.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
+    private void noPermission() {
+        // no
     }
 }
