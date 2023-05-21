@@ -26,7 +26,9 @@ public class ShipwreckedPage extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShipwreckedPage.this, SettingsPage.class);
+                intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -34,6 +36,7 @@ public class ShipwreckedPage extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShipwreckedPage.this, ChoicePage.class);
+                intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
                 startActivity(intent);
                 finish();
             }
