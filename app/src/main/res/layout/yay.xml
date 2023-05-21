@@ -49,6 +49,16 @@
         android:layout_marginTop="-100dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-134dp" />
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="331dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_manage" />
 
 
 </android.widget.RelativeLayout>

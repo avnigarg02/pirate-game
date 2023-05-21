@@ -92,12 +92,22 @@
         android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="280dp"
         android:layout_marginTop="25dp"
         android:text="Back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="331dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_manage" />
 
 </android.widget.RelativeLayout>
 

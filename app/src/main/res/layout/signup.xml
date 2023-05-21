@@ -137,6 +137,16 @@
         android:layout_marginBottom="475dp"
         android:layout_marginRight="200dp"
         android:text="Back to Log In" />
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="331dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_manage" />
 
 
 </RelativeLayout>
