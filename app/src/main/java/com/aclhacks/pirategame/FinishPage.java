@@ -8,15 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 
 
 public class FinishPage extends AppCompatActivity {
 
     private Button home;
     private TextView coinsText;
+    private ImageButton settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,6 +25,7 @@ public class FinishPage extends AppCompatActivity {
 
         home = findViewById(R.id.home);
         coinsText = findViewById(R.id.textView7);
+        settings = findViewById(R.id.settings);
 
         int coins = getIntent().getIntExtra("coins", 0);
         coinsText.setText(String.format("+%d coins", coins));
@@ -77,6 +77,15 @@ public class FinishPage extends AppCompatActivity {
                 intent.putExtra("userId", userId);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FinishPage.this, SettingsPage.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
             }
         });
 
