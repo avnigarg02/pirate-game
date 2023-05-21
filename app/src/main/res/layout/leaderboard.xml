@@ -84,4 +84,14 @@
         android:backgroundTint="@color/design_default_color_primary"
         android:text="Back" />
 
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:backgroundTint="@color/design_default_color_primary"
+        android:layout_marginTop="700dp"
+        android:text="Find Friends" />
+
 </android.widget.RelativeLayout>
