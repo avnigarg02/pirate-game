@@ -4,12 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 
 import androidx.core.app.ActivityCompat;
@@ -20,7 +16,7 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Marker;
+
 import android.Manifest;
 
 import java.io.IOException;
@@ -32,7 +28,7 @@ import java.util.Scanner;
 import android.content.Context;
 
 
-public class Path extends AppCompatActivity {
+public class PathPage extends AppCompatActivity {
 
     private static final int REQUEST_MAPS = 1;
     private MapView map = null;

@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Path"
+            android:name=".PathPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

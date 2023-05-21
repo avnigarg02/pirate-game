@@ -10,7 +10,7 @@ import android.provider.Settings;
 import androidx.annotation.Nullable;
 
 
-public class Finish extends AppCompatActivity {
+public class FinishPage extends AppCompatActivity {
 
     private static final int REQUEST_USAGE_STATS = 1;
 
