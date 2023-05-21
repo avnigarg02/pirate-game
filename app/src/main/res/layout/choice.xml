@@ -125,13 +125,13 @@
         app:layout_constraintTop_toBottomOf="@+id/inputHr" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/coinsText"
         android:layout_width="127dp"
         android:layout_height="58dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/almendra_sc"
-        android:text="variable here for reward value"
+        android:text="0 coins"
         android:textColor="#FEFEFE"
         android:textSize="20dp"
         app:layout_constraintStart_toEndOf="@+id/textView3"
