@@ -34,6 +34,8 @@ public class SettingsPage extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
 }

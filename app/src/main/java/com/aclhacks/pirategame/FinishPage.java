@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
@@ -20,6 +21,7 @@ public class FinishPage extends AppCompatActivity {
     private static final int REQUEST_USAGE_STATS = 1;
 
     private Button home;
+    private EditText coinsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +36,7 @@ public class FinishPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(FinishPage.this, ChoicePage.class);
                 startActivity(intent);
+                finish();
             }
         });
 

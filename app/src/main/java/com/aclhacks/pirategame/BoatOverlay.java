@@ -83,23 +83,35 @@ public class BoatOverlay extends Overlay {
             boatDrawable.draw(canvas);
         }
 
-        drawPath(canvas, startPoint, boatPosition);
+        drawPath(canvas, (float) startPoint.getLatitude(), (float) startPoint.getLongitude(), (float) endPoint.getLatitude(), (float) endPoint.getLongitude());
     }
 
-    private void drawPath(Canvas canvas, GeoPoint startPoint, GeoPoint endPoint) {
+    private void drawPath(Canvas canvas, float startX, float startY, float endX, float endY) {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
 
         Path path = new Path();
-        path.moveTo((float) startPoint.getLongitude(), (float) startPoint.getLatitude());
-        path.lineTo((float) endPoint.getLongitude(), (float) endPoint.getLatitude());
+        int numPoints = 100; // Adjust the number of points for a smoother curve
 
-        Point sP = mapView.getProjection().toPixels(startPoint, null);
-        Point eP = mapView.getProjection().toPixels(endPoint, null);
+        float distance = Math.abs(endX - startX);
+        float amplitude = 100; // Set the desired amplitude of the wave
 
-        canvas.drawLine(sP.x, sP.y, eP.x, eP.y, paint);
+        float deltaX = (endX - startX) / numPoints;
+
+        path.moveTo(startX, startY); // Move to the starting point of the path
+
+        for (float i = startX; i <= endX; i += deltaX) {
+            float waveOffset = amplitude * (float) Math.sin(i / distance * Math.PI); // Calculate the wave offset
+
+            float currentX = i;
+            float currentY = startY + waveOffset;
+
+            path.lineTo(currentX, currentY); // Add a line segment to the path
+        }
+
+        canvas.drawPath(path, paint);
     }
 
 
