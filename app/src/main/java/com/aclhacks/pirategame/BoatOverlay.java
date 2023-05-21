@@ -34,7 +34,7 @@ public class BoatOverlay extends Overlay {
         this.startPoint = startPoint;
         this.distance = distance;
         this.mapView = map;
-        this.speed = 0.01;
+        this.speed = 1/(minutes*60.0*60.0);
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -45,12 +45,11 @@ public class BoatOverlay extends Overlay {
                     {
                         overlayListener.onSignalReceived();
                     }
-
                 }
                 else
                 {
                     mapView.invalidate();
-                    handler.postDelayed(this, 600 * minutes); // 60 FPS (adjust as needed)
+                    handler.postDelayed(this, 16); // 60 FPS (adjust as needed)
                 }
             }
         };
@@ -144,7 +143,8 @@ public class BoatOverlay extends Overlay {
 
     private GeoPoint calculateBoatPosition(GeoPoint startPoint, GeoPoint endPoint, double progress) {
         double currentLat = endPoint.getLatitude() - (endPoint.getLatitude() - startPoint.getLatitude()) * progress;
-        double currentLon = endPoint.getLongitude() - (endPoint.getLongitude() - startPoint.getLongitude()) * progress;
+        double amplitude = 0.01;
+        double currentLon = endPoint.getLongitude() - amplitude * ((Math.sin(2 * Math.PI * (progress + 0.5))/(progress + 0.5)));
 
         return new GeoPoint(currentLat, currentLon);
     }
