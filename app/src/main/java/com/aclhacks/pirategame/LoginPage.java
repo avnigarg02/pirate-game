@@ -17,6 +17,7 @@ public class LoginPage extends AppCompatActivity
     private EditText password;
 
     private EditText username;
+    private long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,6 +37,7 @@ public class LoginPage extends AppCompatActivity
                 if (login(username.getText().toString(), password.getText().toString()) != null)
                 {
                     Intent intent = new Intent(LoginPage.this, ChoicePage.class);
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                     finish();
                 }
@@ -92,7 +94,7 @@ public class LoginPage extends AppCompatActivity
         else
         {
             cursor.moveToFirst();
-            long userId = cursor.getLong(cursor.getColumnIndexOrThrow(LoginInfo.UserEntry.USER_ID));
+            userId = cursor.getLong(cursor.getColumnIndexOrThrow(LoginInfo.UserEntry.USER_ID));
             cursor.close();
             //access user data with userId
             UserDataDbHelper mDbHelper2 = new UserDataDbHelper(this);
