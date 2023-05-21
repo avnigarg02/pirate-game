@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="122dp"
         android:layout_marginTop="350dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginEnd="122dp"
         android:backgroundTint="@color/design_default_color_primary"
 
         android:text="Statistics"
@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="127dp"
-        android:layout_marginEnd="157dp"
+        android:layout_marginEnd="127dp"
         android:layout_marginTop="425dp"
         android:text="Friends"
         android:backgroundTint="@color/design_default_color_primary"
@@ -104,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="280dp"
+        android:layout_marginEnd="250dp"
         android:layout_marginTop="25dp"
         android:backgroundTint="@color/design_default_color_primary"
 
