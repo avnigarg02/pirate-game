@@ -82,6 +82,7 @@ public class ChoicePage extends AppCompatActivity {
                 Intent intent = new Intent(ChoicePage.this, PathPage.class);
                 intent.putExtra("coins", coins);
                 intent.putExtra("time", time);
+                intent.putExtra("start", System.currentTimeMillis());
                 startActivity(intent);
                 finish();
             }

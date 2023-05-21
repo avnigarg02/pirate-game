@@ -3,22 +3,39 @@ package com.aclhacks.pirategame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AppOpsManager;
+import android.app.usage.*;
 import android.content.*;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
+
+import java.util.List;
 
 
 public class FinishPage extends AppCompatActivity {
 
     private static final int REQUEST_USAGE_STATS = 1;
 
+    private Button home;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.yay);
+
+        home = findViewById(R.id.home);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FinishPage.this, ChoicePage.class);
+                startActivity(intent);
+            }
+        });
 
         if (!hasUsageStatsPermission()) {
             requestUsageStatsPermission();
@@ -58,21 +75,21 @@ public class FinishPage extends AppCompatActivity {
 
     private void retrieveUsageStats() {
         // Code to retrieve usage stats here
-//        UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
-//
-//        // Set the desired time range for which you want to retrieve usage stats
-//        long startTime = // Specify start time in milliseconds
-//        long endTime = // Specify end time in milliseconds
-//        List<UsageStats> usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime);
-//
-//        // Process the retrieved usage stats
-//        for (UsageStats usageStats : usageStatsList) {
-//            String packageName = usageStats.getPackageName();
-//            long totalUsageTime = usageStats.getTotalTimeInForeground();
-//
-//            // Process the package name and usage time as needed
-//            // ...
-//        }
+        UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
+
+        // Set the desired time range for which you want to retrieve usage stats
+        long startTime = getIntent().getLongExtra("start", 0);
+        long endTime = System.currentTimeMillis();
+        List<UsageStats> usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime);
+
+        // Process the retrieved usage stats
+        for (UsageStats usageStats : usageStatsList) {
+            String packageName = usageStats.getPackageName();
+            long totalUsageTime = usageStats.getTotalTimeInForeground();
+
+            // Process the package name and usage time as needed
+            // ...
+        }
 
     }
 
