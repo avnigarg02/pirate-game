@@ -84,6 +84,13 @@ public class SettingsPage extends AppCompatActivity {
             }
         });
 
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsPage.this, LeaderboardPage.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
