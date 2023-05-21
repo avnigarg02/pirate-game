@@ -54,6 +54,21 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.map_view);
 
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (!hasUsageStatsPermission()) {
+                    requestUsageStatsPermission();
+                } else {
+                    // Permission already granted, proceed with retrieving usage stats
+                    retrieveUsageStats();
+                }
+                handler.postDelayed(this, 1000 * 60);
+            }
+        };
+        handler.post(runnable);
+
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -99,22 +114,7 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         map.getOverlays().add(boat);
         map.invalidate();
 
-        handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    handler.postDelayed(this, 1000 * 60);
-                    if (!hasUsageStatsPermission()) {
-                        requestUsageStatsPermission();
-                    } else {
-                        // Permission already granted, proceed with retrieving usage stats
-                        retrieveUsageStats();
-                    }
-                }
-            }
-        };
-        handler.post(runnable);
+
 
     }
 
@@ -152,6 +152,7 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         Intent intent = new Intent(this, FinishPage.class);
         intent.putExtra("coins", getIntent().getIntExtra("coins", 0));
         intent.putExtra("start", getIntent().getLongExtra("start", 0));
+//        intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
         startActivity(intent);
         finish();
     }
@@ -200,17 +201,17 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
             long totalUsageTime = usageStats.getTotalTimeInForeground();
 
             // Process the package name and usage time as needed
-            if (!packageName.startsWith("com.android.")) {
+            if (!packageName.startsWith("com.android.") && !packageName.equals("com.aclhacks.pirategame")) {
                 totalTime += totalUsageTime;
             }
         }
 
         // shipwreck if fail - use apps for more than a second in past minute
-        if (totalTime > 1000) {
-            Intent intent = new Intent(PathPage.this, ShipwreckedPage.class);
-            startActivity(intent);
-            finish();
-        }
+//        if (totalTime > 1000) {
+//            Intent intent = new Intent(PathPage.this, ShipwreckedPage.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
     }
 
