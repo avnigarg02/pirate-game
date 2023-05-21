@@ -41,8 +41,5 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-wms:6.1.11'
     implementation 'org.osmdroid:osmdroid-mapsforge:6.1.11'
     implementation 'org.osmdroid:osmdroid-geopackage:6.1.11'
-    implementation 'org.osmdroid:osmdroid-third-party:6.1.11'
-    implementation 'org.osmdroid:osmdroid-kml:6.1.11'
     implementation 'androidx.preference:preference:1.2.0'
-
 }
