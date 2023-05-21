@@ -105,9 +105,8 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
         mapController.setZoom(15);
         Marker startMarker = new Marker(map);
         GeoPoint startPoint = new GeoPoint(randPoint.get(0), randPoint.get(1));
+        startMarker.setPosition(new GeoPoint(randPoint.get(0) - 0.015, randPoint.get(1) + 0.013));
         mapController.setCenter(startPoint);
-        startMarker.setPosition(startPoint);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         startMarker.setIcon(ContextCompat.getDrawable(this, R.drawable.xspot));
         map.getOverlays().add(startMarker);
         Drawable boatDrawable = ContextCompat.getDrawable(this, R.drawable.boat);

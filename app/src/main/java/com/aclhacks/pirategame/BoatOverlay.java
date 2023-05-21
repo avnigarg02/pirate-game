@@ -14,6 +14,9 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Polyline;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoatOverlay extends Overlay {
     private Polyline path;
     private Drawable boatDrawable;
@@ -82,35 +85,29 @@ public class BoatOverlay extends Overlay {
             boatDrawable.draw(canvas);
         }
 
-        drawPath(canvas, (float) startPoint.getLatitude(), (float) startPoint.getLongitude(), (float) endPoint.getLatitude(), (float) endPoint.getLongitude());
+        drawPath(canvas, startPoint, endPoint, boatPosition);
     }
 
-    private void drawPath(Canvas canvas, float startX, float startY, float endX, float endY) {
+    private void drawPath(Canvas canvas, GeoPoint start, GeoPoint end, GeoPoint boat) {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
-        paint.setStrokeWidth(10);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(20);
+        paint.setStyle(Paint.Style.FILL);
 
-        Path path = new Path();
+        List<Float> xPoints = new ArrayList<>();
+        List<Float> yPoints = new ArrayList<>();
         int numPoints = 100; // Adjust the number of points for a smoother curve
 
-        float distance = Math.abs(endX - startX);
-        float amplitude = 100; // Set the desired amplitude of the wave
+        double deltaX = distance / numPoints;
 
-        float deltaX = (endX - startX) / numPoints;
+        canvas.drawPoint((float) start.getLongitude(), (float) start.getLatitude(), paint);
 
-        path.moveTo(startX, startY); // Move to the starting point of the path
+        for (float i = 0; i <= distance; i += deltaX) {
 
-        for (float i = startX; i <= endX; i += deltaX) {
-            float waveOffset = amplitude * (float) Math.sin(i / distance * Math.PI); // Calculate the wave offset
-
-            float currentX = i;
-            float currentY = startY + waveOffset;
-
-            path.lineTo(currentX, currentY); // Add a line segment to the path
+            GeoPoint point = calculateBoatPosition(start, end, i / distance);
+            canvas.drawPoint((float) point.getLongitude(), (float) point.getLatitude(), paint);
         }
 
-        canvas.drawPath(path, paint);
     }
 
 
