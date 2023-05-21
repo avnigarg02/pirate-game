@@ -4,6 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="807dp"
+        android:layout_height="831dp"
+        android:layout_marginStart="-150dp"
+        android:layout_marginTop="-15dp"
+        android:rotation="90"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_60_f_268177020_kvsbjhqxznienbqfwmeu3qkl9cr4doco" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -13,7 +23,7 @@
         android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        app:srcCompat="@android:drawable/ic_menu_manage"/>
 
     <TextView
         android:id="@+id/textView6"
@@ -24,7 +34,8 @@
         android:text="Menu"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/changePassword"
