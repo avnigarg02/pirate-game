@@ -1,6 +1,6 @@
-## VIDEO LINK:
-https://drive.google.com/file/d/1lNkvYJa4MilU4ZellGJlrrhYTi5D_E5Z/view
-Length: 3:26
+# Pirate Time
+
+VIDEO LINK - for AcademiesHacks: https://drive.google.com/file/d/1lNkvYJa4MilU4ZellGJlrrhYTi5D_E5Z/view
 
 ## Inspiration
 According to an analysis done by JAMA health, during the pandemic, on average, children's average screen usage increased 1.5 times, from 162 minutes a day to 246 minutes. Dr. Beurkens says more time spent on devices, leads to less time for physical activities, worse eyesight, higher levels of anxiety and stress, attention and focus issues, and other health problems. Additionally, phones are tempting to use. Once you pick up a phone, social media app algorithms keep you hocked on for hours at end. Pirate Time encourages you to put your phone down and collect rewards for staying focused.
