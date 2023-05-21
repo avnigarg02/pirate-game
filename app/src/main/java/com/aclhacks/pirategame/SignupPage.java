@@ -19,6 +19,7 @@ public class SignupPage extends AppCompatActivity
     private EditText password;
     private EditText username;
     private Button signupButton;
+    private Button backtologin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +32,8 @@ public class SignupPage extends AppCompatActivity
         passwordConfirm = findViewById(R.id.passwordConfirmation);
         fullName = findViewById(R.id.fullname);
         username = findViewById(R.id.username);
+        backtologin = findViewById(R.id.backtologin);
+
         signupButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -43,6 +46,17 @@ public class SignupPage extends AppCompatActivity
                     Intent intent = new Intent(SignupPage.this, LoginPage.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        backtologin.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //set content view to map
+                Intent intent = new Intent(SignupPage.this, LoginPage.class);
+                startActivity(intent);
             }
         });
     }
