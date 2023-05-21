@@ -72,6 +72,7 @@ public class ChoicePage extends AppCompatActivity {
                 Intent intent = new Intent(ChoicePage.this, SettingsPage.class);
                 intent.putExtra("userId", getIntent().getLongExtra("userId", 0));
                 startActivity(intent);
+                finish();
             }
         });
 
