@@ -2,6 +2,7 @@ package com.aclhacks.pirategame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
@@ -31,10 +32,11 @@ import java.util.Scanner;
 import android.content.Context;
 
 
-public class PathPage extends AppCompatActivity {
+public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayListener {
 
     private static final int REQUEST_MAPS = 1;
     private MapView map = null;
+    private BoatOverlay boat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class PathPage extends AppCompatActivity {
         List<Double> randPoint = points.get((int) (Math.random() * points.size()));
 
         IMapController mapController = map.getController();
-        mapController.setZoom(20);
+        mapController.setZoom(10);
         Marker startMarker = new Marker(map);
         GeoPoint startPoint = new GeoPoint(randPoint.get(0), randPoint.get(1));
         mapController.setCenter(startPoint);
@@ -81,37 +83,14 @@ public class PathPage extends AppCompatActivity {
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         map.getOverlays().add(startMarker);
         Drawable boatDrawable = ContextCompat.getDrawable(this, R.drawable.boat);
-//        int minutes = Integer.parseInt(getIntent().getStringExtra("time"));
-        BoatOverlay boat = new BoatOverlay(boatDrawable, startPoint, 6000, Integer.parseInt(getIntent().getStringExtra("time")), map);
+        int minutes = getIntent().getIntExtra("time", 0);
+        System.out.println(minutes);
+        boat = new BoatOverlay(boatDrawable, startPoint, 2000, minutes, map);
+        boat.setOverlayListener(this);
         map.getOverlays().add(boat);
         map.invalidate();
     }
 
-    private static GeoPoint calculateEndPoint(GeoPoint startPoint, double distance) {
-        // Convert distance to meters (if needed)
-        double distanceInMeters = distance;
-
-        // Earth's radius in meters
-        double earthRadius = 6371000;
-
-        // Convert latitude and longitude to radians
-        double lat1 = Math.toRadians(startPoint.getLatitude());
-        double lon1 = Math.toRadians(startPoint.getLongitude());
-
-        // Calculate the end point's latitude
-        double lat2 = Math.asin(Math.sin(lat1) * Math.cos(distanceInMeters / earthRadius) +
-                Math.cos(lat1) * Math.sin(distanceInMeters / earthRadius) * Math.cos(0));
-
-        // Calculate the end point's longitude
-        double lon2 = lon1 + Math.atan2(Math.sin(0) * Math.sin(distanceInMeters / earthRadius) * Math.cos(lat1),
-                Math.cos(distanceInMeters / earthRadius) - Math.sin(lat1) * Math.sin(lat2));
-
-        // Convert back to degrees
-        double endLatitude = Math.toDegrees(lat2);
-        double endLongitude = Math.toDegrees(lon2);
-
-        return new GeoPoint(endLatitude, endLongitude);
-    }
 
     @Override
     public void onResume() {
@@ -140,4 +119,13 @@ public class PathPage extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onSignalReceived() {
+        boat = null;
+        Intent intent = new Intent(this, FinishPage.class);
+        intent.putExtra("coins", getIntent().getIntExtra("coins", 0));
+        intent.putExtra("start", getIntent().getLongExtra("start", 0));
+        startActivity(intent);
+        finish();
+    }
 }

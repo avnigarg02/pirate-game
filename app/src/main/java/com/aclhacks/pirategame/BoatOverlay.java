@@ -1,6 +1,8 @@
 package com.aclhacks.pirategame;
 
 import org.osmdroid.views.overlay.Overlay;
+
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,22 +24,45 @@ public class BoatOverlay extends Overlay {
     private Runnable runnable;
 
     private MapView mapView;
+    private OverlayListener overlayListener;
+
+    private double speed;
+
 
     public BoatOverlay(Drawable boatDrawable, GeoPoint startPoint, double distance, int minutes, MapView map) {
         this.boatDrawable = boatDrawable;
         this.startPoint = startPoint;
         this.distance = distance;
         this.mapView = map;
+        this.speed = 0.01;
         handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
-                updateBoatPosition();
-                mapView.invalidate();
-                handler.postDelayed(this, 600 * minutes); // 60 FPS (adjust as needed)
+                if(!updateBoatPosition())
+                {
+                    if (overlayListener != null)
+                    {
+                        overlayListener.onSignalReceived();
+                    }
+
+                }
+                else
+                {
+                    mapView.invalidate();
+                    handler.postDelayed(this, 600 * minutes); // 60 FPS (adjust as needed)
+                }
             }
         };
         handler.post(runnable);
+    }
+
+    public interface OverlayListener {
+        void onSignalReceived();
+    }
+
+    public void setOverlayListener(OverlayListener listener) {
+        this.overlayListener = listener;
     }
 
     @Override
@@ -58,7 +83,7 @@ public class BoatOverlay extends Overlay {
             boatDrawable.draw(canvas);
         }
 
-        drawPath(canvas, startPoint, endPoint);
+        drawPath(canvas, startPoint, boatPosition);
     }
 
     private void drawPath(Canvas canvas, GeoPoint startPoint, GeoPoint endPoint) {
@@ -68,37 +93,13 @@ public class BoatOverlay extends Overlay {
         paint.setStyle(Paint.Style.STROKE);
 
         Path path = new Path();
-        int numPoints = 100; // Adjust the number of points for a smoother curve
+        path.moveTo((float) startPoint.getLongitude(), (float) startPoint.getLatitude());
+        path.lineTo((float) endPoint.getLongitude(), (float) endPoint.getLatitude());
 
-        double distance = startPoint.distanceToAsDouble(endPoint);
-        double amplitude = distance / 2.0; // Set the desired amplitude of the wave
-        double frequency = 2.0 * Math.PI / distance; // Set the desired frequency of the wave
+        Point sP = mapView.getProjection().toPixels(startPoint, null);
+        Point eP = mapView.getProjection().toPixels(endPoint, null);
 
-        double deltaX = endPoint.getLongitude() - startPoint.getLongitude();
-        double deltaY = endPoint.getLatitude() - startPoint.getLatitude();
-
-        for (int i = 0; i <= numPoints; i++) {
-            double progress = (double) i / numPoints;
-            double waveOffset = Math.sin(i * frequency); // Incorporate the 'i' value into the wave calculation
-
-            double currentDeltaX = deltaX * Math.cos(progress * frequency) * amplitude * waveOffset;
-            double currentDeltaY = deltaY * Math.sin(progress * frequency) * amplitude * waveOffset;
-
-            double currentLon = startPoint.getLongitude() + currentDeltaX;
-            double currentLat = startPoint.getLatitude() + currentDeltaY;
-            GeoPoint point = new GeoPoint(currentLat, currentLon);
-
-            Point screenPoint = new Point();
-            mapView.getProjection().toPixels(point, screenPoint);
-
-            if (i == 0) {
-                path.moveTo(screenPoint.x, screenPoint.y);
-            } else {
-                path.lineTo(screenPoint.x, screenPoint.y);
-            }
-        }
-
-        canvas.drawPath(path, paint);
+        canvas.drawLine(sP.x, sP.y, eP.x, eP.y, paint);
     }
 
 
@@ -115,7 +116,7 @@ public class BoatOverlay extends Overlay {
         double lon1 = Math.toRadians(startPoint.getLongitude());
 
         // Calculate the end point's latitude
-        double lat2 = Math.asin(Math.sin(lat1) * Math.cos(distanceInMeters / earthRadius) +
+        double lat2 = Math.asin(Math.sin(lat1) * Math.cos(distanceInMeters / earthRadius) -
                 Math.cos(lat1) * Math.sin(distanceInMeters / earthRadius) * Math.cos(0));
 
         // Calculate the end point's longitude
@@ -130,26 +131,19 @@ public class BoatOverlay extends Overlay {
     }
 
     private GeoPoint calculateBoatPosition(GeoPoint startPoint, GeoPoint endPoint, double progress) {
-        double distance = startPoint.distanceToAsDouble(endPoint);
-        double amplitude = distance / 2.0; // Set the desired amplitude of the wave
-        double frequency = 2.0 * Math.PI / distance; // Set the desired frequency of the wave
-
-        double deltaX = endPoint.getLongitude() - startPoint.getLongitude();
-        double deltaY = endPoint.getLatitude() - startPoint.getLatitude();
-        double currentDeltaX = deltaX * Math.cos(progress * frequency);
-        double currentDeltaY = deltaY * Math.sin(progress * frequency);
-
-        double currentLon = startPoint.getLongitude() + currentDeltaX;
-        double currentLat = startPoint.getLatitude() + currentDeltaY;
+        double currentLat = endPoint.getLatitude() - (endPoint.getLatitude() - startPoint.getLatitude()) * progress;
+        double currentLon = endPoint.getLongitude() - (endPoint.getLongitude() - startPoint.getLongitude()) * progress;
 
         return new GeoPoint(currentLat, currentLon);
     }
 
-    private void updateBoatPosition() {
+    private boolean updateBoatPosition() {
         if (progress < 1) {
-            progress += 0.01; // Adjust the increment as needed for the desired boat speed
+            progress += speed; // Adjust the increment as needed for the desired boat speed
+            return true;
         } else {
             progress = 1;
+            return false;
         }
     }
 }
