@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -21,7 +22,7 @@ public class FinishPage extends AppCompatActivity {
     private static final int REQUEST_USAGE_STATS = 1;
 
     private Button home;
-    private EditText coinsText;
+    private TextView coinsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,6 +31,10 @@ public class FinishPage extends AppCompatActivity {
         setContentView(R.layout.yay);
 
         home = findViewById(R.id.home);
+        coinsText = findViewById(R.id.textView7);
+
+        coinsText.setText(String.format("+%d coins",
+                getIntent().getIntExtra("coins", 0)));
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
