@@ -42,6 +42,8 @@ public class ChoicePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                scalar = 1f;
+                coins = (int) (time * scalar);
+                coinsText.setText(String.format("%d coins", coins));
             }
         });
 
@@ -49,6 +51,8 @@ public class ChoicePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 scalar = 1.5f;
+                coins = (int) (time * scalar);
+                coinsText.setText(String.format("%d coins", coins));
             }
         });
 
@@ -56,6 +60,8 @@ public class ChoicePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 scalar = 2f;
+                coins = (int) (time * scalar);
+                coinsText.setText(String.format("%d coins", coins));
             }
         });
 
