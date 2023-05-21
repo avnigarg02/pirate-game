@@ -35,7 +35,7 @@ public class LoginPage extends AppCompatActivity
                 //set content view to map
                 if (login(username.getText().toString(), password.getText().toString()) != null)
                 {
-                    Intent intent = new Intent(LoginPage.this, PathPage.class);
+                    Intent intent = new Intent(LoginPage.this, ChoicePage.class);
                     startActivity(intent);
                     finish();
                 }
