@@ -29,8 +29,8 @@ public class SettingsPage extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsPage.this, ChoicePage.class);
-                startActivity(intent);
+//                Intent intent = new Intent(SettingsPage.this, ChoicePage.class);
+//                startActivity(intent);
                 finish();
             }
         });
