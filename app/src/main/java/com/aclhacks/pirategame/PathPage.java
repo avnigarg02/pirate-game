@@ -64,7 +64,7 @@ public class PathPage extends AppCompatActivity implements BoatOverlay.OverlayLi
                     // Permission already granted, proceed with retrieving usage stats
                     retrieveUsageStats();
                 }
-                handler.postDelayed(this, 1000 * 60);
+                handler.postDelayed(this, 1000 * 5);
             }
         };
         handler.post(runnable);
