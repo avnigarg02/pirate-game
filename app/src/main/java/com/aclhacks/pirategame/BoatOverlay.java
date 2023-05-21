@@ -23,7 +23,7 @@ public class BoatOverlay extends Overlay {
 
     private MapView mapView;
 
-    public BoatOverlay(Drawable boatDrawable, GeoPoint startPoint, double distance, MapView map) {
+    public BoatOverlay(Drawable boatDrawable, GeoPoint startPoint, double distance, int minutes, MapView map) {
         this.boatDrawable = boatDrawable;
         this.startPoint = startPoint;
         this.distance = distance;
@@ -34,7 +34,7 @@ public class BoatOverlay extends Overlay {
             public void run() {
                 updateBoatPosition();
                 mapView.invalidate();
-                handler.postDelayed(this, 10); // 60 FPS (adjust as needed)
+                handler.postDelayed(this, 600 * minutes); // 60 FPS (adjust as needed)
             }
         };
         handler.post(runnable);

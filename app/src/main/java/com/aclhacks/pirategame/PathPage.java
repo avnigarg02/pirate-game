@@ -82,7 +82,7 @@ public class PathPage extends AppCompatActivity {
         map.getOverlays().add(startMarker);
         Drawable boatDrawable = ContextCompat.getDrawable(this, R.drawable.boat);
 //        int minutes = Integer.parseInt(getIntent().getStringExtra("time"));
-        BoatOverlay boat = new BoatOverlay(boatDrawable, startPoint, 6000, map);
+        BoatOverlay boat = new BoatOverlay(boatDrawable, startPoint, 6000, Integer.parseInt(getIntent().getStringExtra("time")), map);
         map.getOverlays().add(boat);
         map.invalidate();
     }
